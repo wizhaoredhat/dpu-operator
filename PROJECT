@@ -10,4 +10,14 @@ plugins:
   scorecard.sdk.operatorframework.io/v2: {}
 projectName: dpu-operator
 repo: github.com/wizhaoredhat/dpu-operator
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: dpu.operator.openshift.io
+  group: config
+  kind: DpuConfig
+  path: github.com/wizhaoredhat/dpu-operator/api/v1alpha1
+  version: v1alpha1
 version: "3"
