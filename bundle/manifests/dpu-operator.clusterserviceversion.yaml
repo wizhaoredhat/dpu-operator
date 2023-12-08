@@ -21,7 +21,7 @@ metadata:
         }
       ]
     capabilities: Basic Install
-    createdAt: "2023-12-08T19:09:10Z"
+    createdAt: "2023-12-08T19:50:02Z"
     operators.operatorframework.io/builder: operator-sdk-v1.32.0+git
     operators.operatorframework.io/project_layout: go.kubebuilder.io/v3
   name: dpu-operator.v0.0.1
@@ -152,7 +152,7 @@ spec:
                 - --leader-elect
                 command:
                 - /manager
-                image: controller:latest
+                image: quay.io/wizhao/dpu-operator:0.0.2
                 livenessProbe:
                   httpGet:
                     path: /healthz
