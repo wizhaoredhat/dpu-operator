@@ -1,0 +1,47 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: ClusterServiceVersion
+metadata:
+  annotations:
+    alm-examples: '[]'
+    capabilities: Basic Install
+  name: dpu-operator.v0.0.0
+  namespace: placeholder
+spec:
+  apiservicedefinitions: {}
+  customresourcedefinitions:
+    owned:
+    - description: DpuConfig is the Schema for the dpuconfigs API
+      displayName: Dpu Config
+      kind: DpuConfig
+      name: dpuconfigs.config.dpu.operator.openshift.io
+      version: v1alpha1
+  description: The operator controls DPUs from various vendors.
+  displayName: dpu-operator
+  icon:
+  - base64data: ""
+    mediatype: ""
+  install:
+    spec:
+      deployments: null
+    strategy: ""
+  installModes:
+  - supported: false
+    type: OwnNamespace
+  - supported: false
+    type: SingleNamespace
+  - supported: false
+    type: MultiNamespace
+  - supported: true
+    type: AllNamespaces
+  keywords:
+  - dpu
+  links:
+  - name: Dpu Operator
+    url: https://dpu-operator.domain
+  maintainers:
+  - email: wizhao@redhat.com
+    name: William Zhao
+  maturity: alpha
+  provider:
+    name: Red Hat
+  version: 0.0.0
