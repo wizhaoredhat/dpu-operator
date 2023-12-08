@@ -9,4 +9,5 @@ metadata:
     app.kubernetes.io/created-by: dpu-operator
   name: dpuconfig-sample
 spec:
-  # TODO(user): Add fields here
+  vendor: "Red Hat"
+  logLevel: 2
