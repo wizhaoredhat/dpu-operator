@@ -1,0 +1,18 @@
+syntax = "proto3";
+package pb;
+option go_package = ".;pb";
+
+// The DpuConfig service definition.
+service DpuConfigSrv {
+  rpc GetVersion (VersionRequest) returns (VersionReply) {}
+}
+
+// The version request message containing the component name.
+message VersionRequest {
+  string component_name = 1;
+}
+
+// The version response message containing the component's version.
+message VersionReply {
+  string message = 1;
+}
