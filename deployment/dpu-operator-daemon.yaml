@@ -40,7 +40,7 @@ spec:
       priorityClassName: "system-node-critical"
       containers:
       - name: host-daemon
-        image: quay.io/wizhao/grpc_server:0.0.1
+        image: quay.io/wizhao/grpc_server:0.0.2
         securityContext:
           privileged: true
         env:
@@ -90,7 +90,7 @@ spec:
       priorityClassName: "system-node-critical"
       containers:
       - name: dpu-daemon
-        image: quay.io/wizhao/grpc_client:0.0.1
+        image: quay.io/wizhao/grpc_client:0.0.2
         securityContext:
           privileged: true
         env:
