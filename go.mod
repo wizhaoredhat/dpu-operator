@@ -3,6 +3,7 @@ module github.com/wizhaoredhat/dpu-operator
 go 1.19
 
 require (
+	github.com/containernetworking/cni v1.1.2
 	github.com/onsi/ginkgo/v2 v2.6.0
 	github.com/onsi/gomega v1.24.1
 	google.golang.org/grpc v1.49.0
