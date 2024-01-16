@@ -29,12 +29,7 @@ spec:
         image: quay.io/wizhao/dpucni:0.0.6
         imagePullPolicy: IfNotPresent
         securityContext:
-          allowPrivilegeEscalation: false
-          privileged: false
-          readOnlyRootFilesystem: true
-          capabilities:
-            drop:
-              - ALL
+          privileged: true
         resources:
           requests:
             cpu: "100m"
@@ -45,6 +40,7 @@ spec:
         volumeMounts:
         - name: cnibin
           mountPath: /host/opt/cni/bin
+          mountPropagation: Bidirectional
       volumes:
         - name: cnibin
           hostPath:
