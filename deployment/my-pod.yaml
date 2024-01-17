@@ -5,7 +5,7 @@ metadata:
   namespace: default
   name: my-pod
   annotations:
-     k8s.v1.cni.cncf.io/networks: dpucni-conf
+     k8s.v1.cni.cncf.io/networks: dpusriovcni-conf
 spec:
   securityContext:
     seccompProfile:
@@ -17,6 +17,11 @@ spec:
     command:
       - "/sbin/init"
     imagePullPolicy: IfNotPresent
+    resources:
+      requests:
+        intel.com/marvell_sriov: '1'
+      limits:
+        intel.com/marvell_sriov: '1'
     securityContext:
       allowPrivilegeEscalation: false
       runAsNonRoot: true
