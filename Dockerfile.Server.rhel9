@@ -1,5 +1,6 @@
 # Build the manager binary
-FROM registry.ci.openshift.org/ocp/builder:rhel-9-golang-1.20-openshift-4.15 as builder
+#FROM registry.ci.openshift.org/ocp/builder:rhel-9-golang-1.20-openshift-4.15 as builder
+FROM registry-proxy.engineering.redhat.com/rh-osbs/openshift-golang-builder:rhel_9_golang_1.20 AS builder
 ARG TARGETOS
 ARG TARGETARCH
 
@@ -22,7 +23,8 @@ RUN CGO_ENABLED=0 GOOS=${TARGETOS:-linux} GOARCH=${TARGETARCH} go build -a -o se
 
 # Use distroless as minimal base image to package the server binary
 # Refer to https://github.com/GoogleContainerTools/distroless for more details
-FROM registry.ci.openshift.org/ocp/4.15:base-rhel9
+#FROM registry.ci.openshift.org/ocp/4.15:base-rhel9
+FROM registry-proxy.engineering.redhat.com/rh-osbs/openshift-ose-base:v4.15
 WORKDIR /
 COPY --from=builder /workspace/server .
 USER 65532:65532

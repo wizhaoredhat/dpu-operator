@@ -8,10 +8,10 @@ spec:
   config: '{
       "cniVersion": "0.3.1",
       "name": "dpusriovcni",
-      "type": "dpusriov",
+      "type": "dpucni",
+      "dpu_manager_address": "192.168.1.10:50151",
       "ipam": {
           "type": "host-local",
           "subnet": "10.1.2.0/24"
       }
-      "dpu_manager_address": "192.168.1.10:50151",
     }'
