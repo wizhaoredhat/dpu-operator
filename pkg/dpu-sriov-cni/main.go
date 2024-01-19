@@ -1,10 +1,14 @@
 package main
 
 import (
+	"context"
 	"errors"
 	"fmt"
+	"log"
+	"net"
 	"runtime"
 	"strings"
+	"time"
 
 	"github.com/containernetworking/cni/pkg/skel"
 	"github.com/containernetworking/cni/pkg/types"
@@ -15,8 +19,11 @@ import (
 	"github.com/vishvananda/netlink"
 	"github.com/wizhaoredhat/dpu-operator/pkg/config"
 	"github.com/wizhaoredhat/dpu-operator/pkg/logging"
+	"github.com/wizhaoredhat/dpu-operator/pkg/plugin/generated/pb"
 	"github.com/wizhaoredhat/dpu-operator/pkg/sriov"
 	"github.com/wizhaoredhat/dpu-operator/pkg/utils"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 )
 
 type envArgs struct {
@@ -205,6 +212,35 @@ func cmdAdd(args *skel.CmdArgs) error {
 		return fmt.Errorf("error saving the pci allocation for vf pci address %s: %v", netConf.DeviceID, err)
 	}
 
+	// Set up a connection to the server.
+	conn, err := grpc.Dial(netConf.DpuManagerAddress, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		log.Fatalf("did not connect: %v", err)
+	}
+	defer conn.Close()
+
+	c := pb.NewDpuConfigSrvClient(conn)
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	mac, err := net.ParseMAC(netConf.OrigVfState.EffectiveMAC)
+	if err != nil {
+		return fmt.Errorf("error Parsing Mac Address %q", err)
+	}
+
+	createRequest := &pb.CreateBridgePortRequest{
+		Name: netConf.Master + fmt.Sprint(netConf.VFID),
+		Vfid: uint32(netConf.VFID),
+		Mac:  mac,
+	}
+
+	r, err := c.CreateBridgePort(ctx, createRequest)
+	if err != nil {
+		return fmt.Errorf("could not create send bridge port request: %v", err)
+	}
+	log.Printf("Bridge port name: %s", r.GetName())
+
 	return types.PrintResult(result, netConf.CNIVersion)
 }
 
@@ -295,6 +331,30 @@ func cmdDel(args *skel.CmdArgs) error {
 	if err = allocator.DeleteAllocatedPCI(netConf.DeviceID); err != nil {
 		return fmt.Errorf("error cleaning the pci allocation for vf pci address %s: %v", netConf.DeviceID, err)
 	}
+
+	// Set up a connection to the server.
+	conn, err := grpc.Dial(netConf.DpuManagerAddress, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		log.Fatalf("did not connect: %v", err)
+	}
+	defer conn.Close()
+
+	c := pb.NewDpuConfigSrvClient(conn)
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	deleteRequest := &pb.DeleteBridgePortRequest{
+		Name: netConf.Master + fmt.Sprint(netConf.VFID),
+		Vfid: uint32(netConf.VFID),
+	}
+
+	_, err = c.DeleteBridgePort(ctx, deleteRequest)
+	if err != nil {
+		return fmt.Errorf("could not send delete bridge port request: %v", err)
+	}
+
+	log.Printf("Bridge port deleted: %s", netConf.Master+fmt.Sprint(netConf.VFID))
 
 	return nil
 }
