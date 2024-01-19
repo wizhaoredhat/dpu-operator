@@ -7,6 +7,7 @@ import (
 	"log"
 	"net"
 	"os"
+	"strconv"
 
 	pb "github.com/wizhaoredhat/dpu-operator/pkg/plugin/generated/pb"
 	"google.golang.org/grpc"
@@ -25,6 +26,16 @@ type server struct {
 func (s *server) GetVersion(ctx context.Context, in *pb.VersionRequest) (*pb.VersionReply, error) {
 	log.Printf("(%s) Received: %v", node_name, in.GetComponentName())
 	return &pb.VersionReply{Message: "Version 0.1 for " + in.GetComponentName() + " " + node_name}, nil
+}
+
+func (s *server) CreateBridgePort(ctx context.Context, in *pb.CreateBridgePortRequest) (*pb.BridgePort, error) {
+	log.Printf("(%s) Received: %v %v", node_name, in.GetName(), in.GetVfid())
+	return &pb.BridgePort{Name: "Create for " + in.GetName() + " " + strconv.Itoa(int(in.GetVfid())) + " " + node_name}, nil
+}
+
+func (s *server) DeleteBridgePort(ctx context.Context, in *pb.DeleteBridgePortRequest) (*pb.BridgePort, error) {
+	log.Printf("(%s) Received: %v", node_name, in.GetName())
+	return &pb.BridgePort{Name: "Delete for " + in.GetName() + " " + node_name}, nil
 }
 
 func main() {
