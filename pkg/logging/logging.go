@@ -1,9 +1,8 @@
+// package logging is a small wrapper around github.com/k8snetworkplumbingwg/cni-log
+
 package logging
 
 import (
-	"fmt"
-	"os"
-
 	cnilog "github.com/k8snetworkplumbingwg/cni-log"
 )
 
@@ -12,7 +11,7 @@ const (
 	labelContainerID = "containerID"
 	labelNetNS       = "netns"
 	labelIFName      = "ifname"
-	cniName          = "dpucni"
+	cniName          = "sriov-cni"
 )
 
 var (
@@ -44,17 +43,11 @@ func setLogLevel(l string) {
 
 // setLogFile sets the log file for logging. If the empty string is provided, it uses stderr.
 func setLogFile(fileName string) {
-	fp, _ := os.OpenFile("/tmp/cni_debug", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
-	defer fp.Close()
-
 	if fileName == "" {
 		cnilog.SetLogStderr(true)
 		cnilog.SetLogFile("")
-
-		fmt.Fprintf(fp, "DEBUG going to stderr")
 		return
 	}
-	fmt.Fprintf(fp, "DEBUG going to file %s ", fileName)
 	cnilog.SetLogFile(fileName)
 	cnilog.SetLogStderr(false)
 }
