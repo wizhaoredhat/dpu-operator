@@ -9,7 +9,7 @@ require (
 	github.com/onsi/ginkgo/v2 v2.13.2
 	github.com/onsi/gomega v1.30.0
 	github.com/stretchr/testify v1.8.0
-	github.com/vishvananda/netlink v1.2.1-beta.2
+	github.com/vishvananda/netlink v1.2.1-beta.2.0.20230905152006-63484bbf69f8
 	golang.org/x/net v0.17.0
 	google.golang.org/grpc v1.56.3
 	google.golang.org/protobuf v1.30.0
