@@ -26,7 +26,7 @@ spec:
         effect: NoSchedule
       containers:
       - name: kube-dpu-cni
-        image: quay.io/wizhao/dpu-sriov-cni:0.0.1
+        image: quay.io/wizhao/dpu-sriov-cni:0.0.2
         imagePullPolicy: IfNotPresent
         securityContext:
           privileged: true
