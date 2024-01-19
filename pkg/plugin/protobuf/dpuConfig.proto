@@ -5,6 +5,23 @@ option go_package = ".;pb";
 // The DpuConfig service definition.
 service DpuConfigSrv {
   rpc GetVersion (VersionRequest) returns (VersionReply) {}
+  rpc CreateBridgePort(CreateBridgePortRequest) returns (BridgePort) {}
+  rpc DeleteBridgePort(DeleteBridgePortRequest) returns (BridgePort) {}
+}
+
+message CreateBridgePortRequest {
+  string name = 1;
+  uint32 vfid = 2;
+  bytes mac = 3;
+}
+
+message DeleteBridgePortRequest {
+  string name = 1;
+  uint32 vfid = 2;
+}
+
+message BridgePort {
+  string name = 1;
 }
 
 // The version request message containing the component name.

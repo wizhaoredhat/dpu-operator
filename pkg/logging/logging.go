@@ -11,7 +11,7 @@ const (
 	labelContainerID = "containerID"
 	labelNetNS       = "netns"
 	labelIFName      = "ifname"
-	cniName          = "sriov-cni"
+	cniName          = "dpu-sriov-cni"
 )
 
 var (

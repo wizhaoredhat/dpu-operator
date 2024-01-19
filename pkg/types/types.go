@@ -40,7 +40,7 @@ func (vs *VfState) FillFromVfInfo(info *netlink.VfInfo) {
 	vs.Trust = info.Trust != 0
 }
 
-// NetConf extends types.NetConf for sriov-cni
+// NetConf extends types.NetConf for dpu-sriov-cni
 type NetConf struct {
 	types.NetConf
 	OrigVfState   VfState // Stores the original VF state as it was prior to any operations done during cmdAdd flow
@@ -60,6 +60,7 @@ type NetConf struct {
 	RuntimeConfig struct {
 		Mac string `json:"mac,omitempty"`
 	} `json:"runtimeConfig,omitempty"`
-	LogLevel string `json:"logLevel,omitempty"`
-	LogFile  string `json:"logFile,omitempty"`
+	LogLevel          string `json:"logLevel,omitempty"`
+	LogFile           string `json:"logFile,omitempty"`
+	DpuManagerAddress string `json:"dpu_manager_address,omitempty"`
 }

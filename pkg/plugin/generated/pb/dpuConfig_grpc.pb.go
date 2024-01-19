@@ -23,6 +23,8 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DpuConfigSrvClient interface {
 	GetVersion(ctx context.Context, in *VersionRequest, opts ...grpc.CallOption) (*VersionReply, error)
+	CreateBridgePort(ctx context.Context, in *CreateBridgePortRequest, opts ...grpc.CallOption) (*BridgePort, error)
+	DeleteBridgePort(ctx context.Context, in *DeleteBridgePortRequest, opts ...grpc.CallOption) (*BridgePort, error)
 }
 
 type dpuConfigSrvClient struct {
@@ -42,11 +44,31 @@ func (c *dpuConfigSrvClient) GetVersion(ctx context.Context, in *VersionRequest,
 	return out, nil
 }
 
+func (c *dpuConfigSrvClient) CreateBridgePort(ctx context.Context, in *CreateBridgePortRequest, opts ...grpc.CallOption) (*BridgePort, error) {
+	out := new(BridgePort)
+	err := c.cc.Invoke(ctx, "/pb.DpuConfigSrv/CreateBridgePort", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dpuConfigSrvClient) DeleteBridgePort(ctx context.Context, in *DeleteBridgePortRequest, opts ...grpc.CallOption) (*BridgePort, error) {
+	out := new(BridgePort)
+	err := c.cc.Invoke(ctx, "/pb.DpuConfigSrv/DeleteBridgePort", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DpuConfigSrvServer is the server API for DpuConfigSrv service.
 // All implementations must embed UnimplementedDpuConfigSrvServer
 // for forward compatibility
 type DpuConfigSrvServer interface {
 	GetVersion(context.Context, *VersionRequest) (*VersionReply, error)
+	CreateBridgePort(context.Context, *CreateBridgePortRequest) (*BridgePort, error)
+	DeleteBridgePort(context.Context, *DeleteBridgePortRequest) (*BridgePort, error)
 	mustEmbedUnimplementedDpuConfigSrvServer()
 }
 
@@ -56,6 +78,12 @@ type UnimplementedDpuConfigSrvServer struct {
 
 func (UnimplementedDpuConfigSrvServer) GetVersion(context.Context, *VersionRequest) (*VersionReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetVersion not implemented")
+}
+func (UnimplementedDpuConfigSrvServer) CreateBridgePort(context.Context, *CreateBridgePortRequest) (*BridgePort, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateBridgePort not implemented")
+}
+func (UnimplementedDpuConfigSrvServer) DeleteBridgePort(context.Context, *DeleteBridgePortRequest) (*BridgePort, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteBridgePort not implemented")
 }
 func (UnimplementedDpuConfigSrvServer) mustEmbedUnimplementedDpuConfigSrvServer() {}
 
@@ -88,6 +116,42 @@ func _DpuConfigSrv_GetVersion_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DpuConfigSrv_CreateBridgePort_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateBridgePortRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DpuConfigSrvServer).CreateBridgePort(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.DpuConfigSrv/CreateBridgePort",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DpuConfigSrvServer).CreateBridgePort(ctx, req.(*CreateBridgePortRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DpuConfigSrv_DeleteBridgePort_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteBridgePortRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DpuConfigSrvServer).DeleteBridgePort(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.DpuConfigSrv/DeleteBridgePort",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DpuConfigSrvServer).DeleteBridgePort(ctx, req.(*DeleteBridgePortRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DpuConfigSrv_ServiceDesc is the grpc.ServiceDesc for DpuConfigSrv service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -98,6 +162,14 @@ var DpuConfigSrv_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetVersion",
 			Handler:    _DpuConfigSrv_GetVersion_Handler,
+		},
+		{
+			MethodName: "CreateBridgePort",
+			Handler:    _DpuConfigSrv_CreateBridgePort_Handler,
+		},
+		{
+			MethodName: "DeleteBridgePort",
+			Handler:    _DpuConfigSrv_DeleteBridgePort_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
