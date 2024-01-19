@@ -5,10 +5,10 @@ import (
 
 	"github.com/containernetworking/plugins/pkg/ns"
 
-	"github.com/k8snetworkplumbingwg/sriov-cni/pkg/logging"
-	sriovtypes "github.com/k8snetworkplumbingwg/sriov-cni/pkg/types"
-	"github.com/k8snetworkplumbingwg/sriov-cni/pkg/utils"
 	"github.com/vishvananda/netlink"
+	"github.com/wizhaoredhat/dpu-operator/pkg/logging"
+	sriovtypes "github.com/wizhaoredhat/dpu-operator/pkg/types"
+	"github.com/wizhaoredhat/dpu-operator/pkg/utils"
 )
 
 type pciUtils interface {

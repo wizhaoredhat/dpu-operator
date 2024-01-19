@@ -8,8 +8,8 @@ import (
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 
-	"github.com/k8snetworkplumbingwg/sriov-cni/pkg/types"
-	"github.com/k8snetworkplumbingwg/sriov-cni/pkg/utils"
+	"github.com/wizhaoredhat/dpu-operator/pkg/types"
+	"github.com/wizhaoredhat/dpu-operator/pkg/utils"
 )
 
 var _ = Describe("Config", func() {

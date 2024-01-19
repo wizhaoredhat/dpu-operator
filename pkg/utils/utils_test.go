@@ -10,7 +10,7 @@ import (
 
 	"github.com/vishvananda/netlink"
 
-	mocks_utils "github.com/k8snetworkplumbingwg/sriov-cni/pkg/utils/mocks"
+	mocks_utils "github.com/wizhaoredhat/dpu-operator/pkg/utils/mocks"
 )
 
 var _ = Describe("Utils", func() {

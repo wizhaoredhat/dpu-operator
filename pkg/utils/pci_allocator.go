@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 
 	"github.com/containernetworking/plugins/pkg/ns"
-	"github.com/k8snetworkplumbingwg/sriov-cni/pkg/logging"
+	"github.com/wizhaoredhat/dpu-operator/pkg/logging"
 )
 
 type PCIAllocation interface {

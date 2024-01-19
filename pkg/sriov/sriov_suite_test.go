@@ -6,7 +6,7 @@ import (
 
 	"testing"
 
-	"github.com/k8snetworkplumbingwg/sriov-cni/pkg/utils"
+	"github.com/wizhaoredhat/dpu-operator/pkg/utils"
 )
 
 func TestConfig(t *testing.T) {

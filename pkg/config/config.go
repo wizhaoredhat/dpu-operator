@@ -7,9 +7,9 @@ import (
 	"strings"
 
 	"github.com/containernetworking/cni/pkg/skel"
-	"github.com/k8snetworkplumbingwg/sriov-cni/pkg/logging"
-	sriovtypes "github.com/k8snetworkplumbingwg/sriov-cni/pkg/types"
-	"github.com/k8snetworkplumbingwg/sriov-cni/pkg/utils"
+	"github.com/wizhaoredhat/dpu-operator/pkg/logging"
+	sriovtypes "github.com/wizhaoredhat/dpu-operator/pkg/types"
+	"github.com/wizhaoredhat/dpu-operator/pkg/utils"
 )
 
 var (

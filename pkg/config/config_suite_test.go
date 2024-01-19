@@ -3,9 +3,9 @@ package config
 import (
 	"testing"
 
-	"github.com/k8snetworkplumbingwg/sriov-cni/pkg/utils"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
+	"github.com/wizhaoredhat/dpu-operator/pkg/utils"
 )
 
 func TestConfig(t *testing.T) {

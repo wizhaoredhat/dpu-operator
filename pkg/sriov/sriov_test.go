@@ -3,17 +3,17 @@ package sriov
 import (
 	"net"
 
-	"github.com/k8snetworkplumbingwg/sriov-cni/pkg/utils"
+	"github.com/wizhaoredhat/dpu-operator/pkg/utils"
 
 	"github.com/containernetworking/plugins/pkg/ns"
 	"github.com/containernetworking/plugins/pkg/testutils"
-	"github.com/k8snetworkplumbingwg/sriov-cni/pkg/sriov/mocks"
-	sriovtypes "github.com/k8snetworkplumbingwg/sriov-cni/pkg/types"
-	mocks_utils "github.com/k8snetworkplumbingwg/sriov-cni/pkg/utils/mocks"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	"github.com/stretchr/testify/mock"
 	"github.com/vishvananda/netlink"
+	"github.com/wizhaoredhat/dpu-operator/pkg/sriov/mocks"
+	sriovtypes "github.com/wizhaoredhat/dpu-operator/pkg/types"
+	mocks_utils "github.com/wizhaoredhat/dpu-operator/pkg/utils/mocks"
 )
 
 var _ = Describe("Sriov", func() {
