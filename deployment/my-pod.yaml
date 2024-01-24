@@ -7,6 +7,10 @@ metadata:
   annotations:
      k8s.v1.cni.cncf.io/networks: dpusriovcni-conf
 spec:
+  tolerations:
+  - key: node-role.kubernetes.io/control-plane
+    operator: Exists
+    effect: NoSchedule
   securityContext:
     seccompProfile:
       type: RuntimeDefault
